@@ -53,11 +53,13 @@ public:
 	int size() const { return sz; }
 	void push_back(testobj d);
 	cs_vector& operator=(cs_vector& vect);		// return type is convention so can chain assignment
-	testobj* operator[](int i) { return elem[i]; }
-	
+	testobj& operator[](int i) { return *elem[i]; }
+	testobj& operator*() { return *elem[0]; }
+	testobj* operator+(int i) { return elem[i]; }
 	void reserve(int newalloc);
 	//void resize(int newsize, T val = T());
 	void resize(int newsize, testobj* val = nullptr);
+
 };
 
 //template <typename T, typename A> void cs_vector<typename T, typename A>::reserve(int newalloc)
@@ -98,7 +100,7 @@ cs_vector& cs_vector::operator=(cs_vector & vect) {
 	// enough space - no changes to allocation
 	if (space >= vect.capacity()) {
 		for (int i = 0; i < vect.size(); i++)
-			elem[i] = vect[i];
+			*elem[i] = vect[i];
 		sz = vect.size();
 		return *this;
 	}
@@ -109,7 +111,7 @@ cs_vector& cs_vector::operator=(cs_vector & vect) {
 	space = 0;
 	resize(vect.size());
 	for (int i = 0; i < vect.size(); i++)
-		elem[i] = vect[i];
+		*elem[i] = vect[i];
 
 	return *this;
 }
