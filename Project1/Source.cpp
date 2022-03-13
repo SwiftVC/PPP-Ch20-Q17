@@ -7,6 +7,7 @@
 *		- element's destructors called on close;
 *		- the push_back operation creates a new pointer
 *		- the array-of-pointers, elem, is handled by an allocator.
+*		It is not generalized for readability.
 * 
 *		There is no memory leak.
 */
